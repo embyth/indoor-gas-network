@@ -1,4 +1,4 @@
-# :fire: Розрахунок внутрышньо-будинкової газової мережі
+# :fire: Розрахунок внутрішньо-будинкової газової мережі
 
 [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
