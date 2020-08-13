@@ -1,97 +1,71 @@
-# :rocket: Basic Gulp Web Project Boilerplate
+# :fire: Розрахунок внутрышньо-будинкової газової мережі
 
 [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
-Boilerplate is intended to begin project using CSS preprocessor SASS and task manager Gulp.
+Розрахунок проводиться за методом рівномірного розподілу гідравлічного нахилу шляхом підбору ділянок мережі
 
-Author: [Rostyslav Miniukov](https://github.com/embyth/)
+Код: [Ростислав Мінюков](https://github.com/embyth/)
 
----
+Методика розрахунку: ДБН В.2.5-20-20 "Газопостачання"
 
-## Installation
-
-```bash
-git clone git@github.com:embyth/startup-gulp-template.git project-name
-cd project-name
-```
+[**Демо**](https://embyth.github.io/indoor-gas-network/)
 
 ---
 
-## Usage
+## Особливості гідравлічного розрахунку внутрішньо-будинкових газових мереж
 
-`npm install` - install dependencies.
-
-`npm start` - building project in dev mode and launching local server.
-
-`npm run build` - building project.
-
-`npm run deploy` - building project and deploying it on [GitHub Pages](https://pages.github.com).
-
-`npm run dist` - building project and archieving it in zip.
-
-`npm test` - launching linting test.
+1. внутрішні газопроводи житлових будинків відносяться до газових мереж низького тиску
+2. при розрахунку вертикальних ділянок необхідно враховувати зміну надлишкового тиску газу, спричинену різницею геодезичних позначок кінця і початку дялянки та різницею густин повітря і газу
+3. при розрахунку втрат тиску в місцевих опорах необхідно враховувати фунціональне призначення ділянки
+4. розрахункові витрати газу на ділянках визнаються з урахуванням коефіцієнта одночасності <code>К<sub>o</sub></code>, який показує імовірність одночасного включення в роботу газових приладів
+5. газифікація будинків проводиться виключно сталевими газопроводами
 
 ---
 
-## Template Structure
+## Вихідні дані для розрахунку
+
+- конфігурація газової мережі
+- масиви довжин і розрахункових витрат газу ділянок газової мережі
+- допустимі витрати тиску у мережі
+- фізичні властивості газу: густина і кінематична в'язкість за нормальних умов
+- середня температура газу в газовій мережі
+- абсолютна еквівалентна шорсткість внутрішньої поверхні труб 
+
+---
+
+## Мета
+
+Мета розрахунку полягає у визначенні діаметрів ділянок внутрішньої газової мережі, при яких максимально використовується заданий перепад тиску 
+
+---
+
+## Структура проекту
 
 ```bash
 .
-├── build/            # project build directory (created automatically)
-├── dist/             # directory in which the assembled project is archived (created automatically)
-├── source/           # directory for placing project source files
-│   ├── fonts/        # fonts directory
-│   ├── img/          # images directory
-│   │   └── content/  # content images directory for converting to webp format
-│   │   └── icons/    # vector images directory for generating svg sprite
-│   ├── js/           # JavaScript directory
-│   ├── sass/         # styles directory
-│   └── index.html    # page mark-up file
-├── .babelrc          # Babel config
-├── .editorconfig     # Editor config
-├── .eslintrc.json    # ESLint config
-├── .gitattributes    # Git attributes file
-├── .gitignore        # Git ignore file
-├── .npmrc            # npm config
-├── .stylelintrc.json # stylelint config
-├── .travis.yml       # Travis CI config
-├── gulpfile.js       # Gulp tasks file
-├── package.json      # npm dependencies and project settings file
+├── build/            # директорія сборки проекту (генерується автоматично)
+├── dist/             # директорія проекту для архівування (генерується автоматично)
+├── gulpfile.js       # директорія задач Gulp
+├── source/           # директорія вихідних файлів проекту
+│   ├── fonts/        # директорія шрифтів
+│   ├── img/          # директорія картинок
+│   ├── js/           # директорія JavaScript файлів
+│   ├── sass/         # директорія стилів
+│   └── index.html    # головний файл розмітки
+├── .babelrc          # конфігурація Babel
+├── .editorconfig     # конфігурація Editor config
+├── .eslintrc.json    # конфігурація ESLint
+├── .gitattributes    # файл Git attributes
+├── .gitignore        # файл Git ignore
+├── .npmrc            # конфігурація npm
+├── .stylelintrc.json # конфігурація stylelint
+├── .travis.yml       # конфігураціяTravis CI
+├── package.json      # файл npm залежностей та налаштування проекту
 ├── package-lock.json # npm lock-file
-└── README.md         # project documents
+└── README.md         # документація
 ```
 
----
-
-### Reminder
-
-To update to a new major version all the packages, install the `npm-check-updates` package globally:
-
-```bash
-npm install -g npm-check-updates
-```
-
-then run it:
-
-```bash
-ncu -u
-```
-
-this will upgrade all the version hints in the `package.json` file, to `dependencies` and `devDependencies`, so npm can install the new major version.
-
-You are now ready to run the update:
-
-```bash
-npm update
-```
-
-If you just downloaded the project without the `node_modules` dependencies and you want to install the shiny new versions first, just run
-
-```bash
-npm install
-```
-
-[travis-image]: https://travis-ci.org/embyth/startup-gulp-template.svg?branch=master
-[travis-url]: https://travis-ci.org/embyth/startup-gulp-template
-[dependency-image]: https://david-dm.org/embyth/startup-gulp-template/dev-status.svg?style=flat-square
-[dependency-url]: https://david-dm.org/embyth/startup-gulp-template?type=dev
+[travis-image]: https://travis-ci.org/embyth/indoor-gas-network.svg?branch=master
+[travis-url]: https://travis-ci.org/embyth/indoor-gas-network
+[dependency-image]: https://david-dm.org/embyth/indoor-gas-network/dev-status.svg?style=flat-square
+[dependency-url]: https://david-dm.org/embyth/indoor-gas-network?type=dev
