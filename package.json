@@ -1,7 +1,7 @@
 {
-  "name": "startup-gulp-template",
-  "version": "1.2.0",
-  "description": "Lightweight startup Gulp with SASS template for web project",
+  "name": "indoor-gas-network",
+  "version": "0.1.0",
+  "description": "Розрахунок внутрышньо-будинкової газової мережі",
   "main": "gulpfile.js",
   "scripts": {
     "start": "gulp",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/embyth/startup-gulp-template.git"
+    "url": "git+ssh://git@github.com/embyth/indoor-gas-network.git"
   },
   "author": "Rostyslav Miniukov <miniukovrostyslav@gmail.com> (https://github.com/embyth)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/embyth/startup-gulp-template/issues"
+    "url": "https://github.com/embyth/indoor-gas-network/issues"
   },
-  "homepage": "https://github.com/embyth/startup-gulp-template#readme",
+  "homepage": "https://github.com/embyth/indoor-gas-network#readme",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
