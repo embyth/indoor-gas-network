@@ -1,18 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/libs/normalize.css">
   <link rel="stylesheet" href="css/style.min.css">
-  <title>Project Title</title>
+  <title>Розрахунок внутрішньо-будинкової газової мережі</title>
 </head>
 
 <body class="page">
 
-  <h1>My Project</h1>
+  <div class="site-container">
 
+    <!-- Шапка сайту з зовнішніми посиланнями -->
+    <header id="site-header" class="site-header">
+      <div class="site-header__logo-wrapper">
+        <!-- Logo -->
+      </div>
+
+      <ul class="site-header__links-list">
+        <li class="site-header__links-item">
+          <a href="#">Розрахунок системи газопостачання сільського населеного пункту</a>
+        </li>
+        <li class="site-header__links-item">
+          <a href="#">Розрахунок режиму роботи газотранспортної системи</a>
+        </li>
+        <li class="site-header__links-item">
+          <a href="#">Технологічний розрахунок магістрального нафтопроводу</a>
+        </li>
+      </ul>
+
+      <div class="site-header__donate">
+        <a href="#" class="site-header__donate-link">Автору на каву</a>
+      </div>
+    </header>
+
+    <main id="site-content">
+
+      <!-- Секція вступу розрахунку -->
+      <section id="intro">
+        <div class="section__container">
+          <h1 class="site-heading">Розрахунок внутрышньо-будинкової газової мережі</h1>
+
+          <p class="intro__text">
+            Розрахунок проводиться аналітичним методом рівномірного розподілу гідравлічного нахилу шляхом підбору
+            ділянок мережі з метою уточнити втрати тиску газу на кожній ділянці і загалом у
+            газовій мережі житлового будинку
+          </p>
+
+          <button class="button intro__button intro__button--info" type="button">Інформація</button>
+          <button class="button intro__button intro__button--next" type="button">Почати</button>
+        </div>
+      </section>
+
+      <!-- Секція з вихідними даними розрахунку -->
+      <section id="income-data" style="display: none;">
+        <div class="section__container">
+          <h2 class="section-heading">Вихідні дані для розрахунку</h2>
+
+          <fieldset class="fieldset-data">
+            <div class="data__container data__container--left">
+
+              <div class="data__item">
+                <label for="allowable-presure" class="data__label">Допустимий перепад тиску газу</label>
+                <dfn class="data__input--definition">ΔР<sub>доп</sub></dfn>
+                <input type="number" class="data__input" id="allowable-presure" placeholder="300" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension">Па</span>
+              </div>
+
+              <div class="data__item">
+                <label for="starting-presure" class="data__label">Початковий надлишковий тиск газу</label>
+                <dfn class="data__input--definition">Р<sub>п</sub></dfn>
+                <input type="number" class="data__input" id="starting-presure" placeholder="1600" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension">Па</span>
+              </div>
+
+              <div class="data__item">
+                <label for="gas-starting" class="data__label">Густина газу за нормальних умов</label>
+                <dfn class="data__input--definition">ρ<sub>н</sub></dfn>
+                <input type="number" class="data__input" id="gas-starting" placeholder="0.8350" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension">кг/м<sup>3</sup></span>
+              </div>
+
+              <div class="data__item">
+                <label for="gas-viscosity" class="data__label">Кінематична в'язкість газу за норм. умов</label>
+                <dfn class="data__input--definition">υ×10<sup>-6</sup></dfn>
+                <input type="number" class="data__input" id="gas-viscosity" placeholder="12.39" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension">м<sup>2</sup>/с</span>
+              </div>
+
+              <div class="data__item">
+                <label for="segments-amount" class="data__label">Кількість ділянок руху газу</label>
+                <dfn class="data__input--definition">n</dfn>
+                <input type="number" class="data__input" id="segments-amount" placeholder="10" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension">шт</span>
+              </div>
+
+              <div class="data__item">
+                <label for="overload-factor" class="data__label">Коефіцієнт перевантаження мережі</label>
+                <dfn class="data__input--definition">k</dfn>
+                <input type="number" class="data__input" id="overload-factor" placeholder="1" min="0"
+                  autocomplete="off">
+              </div>
+            </div>
+
+            <div class="data__container data__container--right">
+              <div class="data__item">
+                <label for="average-temperature" class="data__label">Середня температура газу в мережі</label>
+                <dfn class="data__input--definition">Т<sub>ср</sub></dfn>
+                <input type="number" class="data__input" id="average-temperature" placeholder="12" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension"><sup>о</sup>С</span>
+              </div>
+
+              <div class="data__item">
+                <label for="calc-accurance" class="data__label">Точність розрахунку</label>
+                <dfn class="data__input--definition">ε</dfn>
+                <input type="number" class="data__input" id="calc-accurance" placeholder="1" min="0.1"
+                  autocomplete="off" step="0.1">
+                <span class="data__input--dimension">%</span>
+              </div>
+
+              <div class="data__item">
+                <label for="atmospheric-pressure" class="data__label">Атмосферний тиск</label>
+                <dfn class="data__input--definition">Р<sub>бар</sub></dfn>
+                <input type="number" class="data__input" id="atmospheric-pressure" placeholder="101325" min="100"
+                  autocomplete="off">
+                <span class="data__input--dimension">Па</span>
+              </div>
+
+              <div class="data__item">
+                <label for="gas-speed" class="data__label">Максимальна швидкість газу в мережі</label>
+                <dfn class="data__input--definition">w<sub>max</sub></dfn>
+                <input type="number" class="data__input" id="gas-speed" placeholder="7" min="0" autocomplete="off">
+                <span class="data__input--dimension">м/с</span>
+              </div>
+
+              <div class="data__item">
+                <label for="gas-consumption" class="data__label">Значення усередненої витрати газу</label>
+                <dfn class="data__input--definition">Q<sub>cp</sub></dfn>
+                <input type="number" class="data__input" id="gas-consumption" placeholder="11" min="0"
+                  autocomplete="off">
+                <span class="data__input--dimension">м<sup>3</sup>/год</span>
+              </div>
+
+              <div class="data__item">
+                <button class="button data__button data__button--next" type="button">Далі</button>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- Секція з вихідними даними ділянок -->
+      <section id="income-segments" style="display: none;">
+        <div class="section__container">
+          <h2 class="section-heading">Вихідні дані ділянок мережі</h2>
+
+          <fieldset class="fieldset-data">
+            <div class="data__container data__container--main">
+
+              <table class="data__table data__table--segments">
+                <thead class="data__table-head">
+                  <tr>
+                    <td class="data__table-cell data__table-cell--head">Номер</td>
+                    <td class="data__table-cell data__table-cell--head">Ділянка</td>
+                    <td class="data__table-cell data__table-cell--head">Розрахункова витрата газу <dfn>Q</dfn>,&nbsp;
+                      <span>м<sup>3</sup>/год</span></td>
+                    <td class="data__table-cell data__table-cell--head">Довжина <dfn>l</dfn>,&nbsp;
+                      <span>м</span></td>
+                    <td class="data__table-cell data__table-cell--head">Коеф. місцевого опору
+                      <dfn>a<sub>i</sub></dfn>,&nbsp;<span>%</span></td>
+                    <td class="data__table-cell data__table-cell--head">Напрям руху газу</td>
+                  </tr>
+                </thead>
+                <tbody class="data__table-body"></tbody>
+              </table>
+            </div>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- Секція з результатами розрахунку -->
+      <section id="results" style="display: none;">
+        <div class="section__container">
+          <h2 class="section-heading">Результати гідравлічного розрахунку будинкової мережі</h2>
+
+          <div class="data__container data__container--main">
+
+            <table class="data__table data__table--results">
+              <thead class="data__table-head">
+                <tr class="data__table-row">
+                  <td class="data__table-cell data__table-cell--head">Ділянка</td>
+                  <td class="data__table-cell data__table-cell--head">Довжина <dfn>l</dfn>,&nbsp;<span>м</span></td>
+                  <td class="data__table-cell data__table-cell--head">Розрахункова витрата газу <dfn>Q</dfn>,&nbsp;
+                    <span>м<sup>3</sup>/год</span></td>
+                  <td class="data__table-cell data__table-cell--head">Діаметр <dfn>D<sub>з</sub>×δ</dfn>,&nbsp;
+                    <span>мм</span></td>
+                  <td class="data__table-cell data__table-cell--head">Втрати тиску від тертя у місцевих опорах
+                    <dfn>ΔР</dfn>,&nbsp;<span>Па</span></td>
+                  <td class="data__table-cell data__table-cell--head">Гідростатичний перепад тиску
+                    <dfn>ΔР<sub>гс</sub></dfn>,&nbsp;<span>Па</span></td>
+                  <td class="data__table-cell data__table-cell--head">Загальний перепад тиску
+                    <dfn>ΔР<sub>заг</sub></dfn>,&nbsp;<span>Па</span></td>
+                  <td class="data__table-cell data__table-cell--head">Кінцевий надлишковий тиск на ділянці , Па
+                    <dfn>Р<sub>к</sub></dfn>,&nbsp;<span>Па</span></td>
+                </tr>
+              </thead>
+              <tbody class="data__table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Секція з канвасом креслення -->
+      <section id="drawing" style="display: none;">
+        <div class="section__container">
+          <h2 class="section-heading">Схема з результатами розрахунку будинкової мережі</h2>
+
+          <fieldset class="fieldset-data">
+            <div class="data__container data__container--canvas">
+
+              <canvas id="drawing-results"></canvas>
+            </div>
+          </fieldset>
+        </div>
+      </section>
+    </main>
+
+    <!-- Сайдбар з соц. сітями -->
+    <aside id="socials">
+      <ul class="socials__list">
+        <li class="socials__item">
+          <a href="https://t.me/embyth" target="_blank">Telegram</a>
+        </li>
+        <li class="socials__item">
+          <a href="https://github.com/embyth" target="_blank">GitHub</a>
+        </li>
+        <li class="socials__item">
+          <a href="https://instagram.com/rostyslavminiukov" target="_blank">Instagram</a>
+        </li>
+      </ul>
+
+      <div class="mentions">
+        <ul class="mentions__list">
+          <li class="mentions__item">
+            <a href="https://nung.edu.ua" target="_blank">
+              <img class="mentions__logo--nung" src="img/nung-logo.png" alt="Логотип ІФНТУНГ">
+            </a>
+          </li>
+          <li class="mentions__item">
+            <a href="https://www.nung.edu.ua/department/%D0%BD%D0%B0%D1%84%D1%82%D0%BE%D0%B3%D0%B0%D0%B7%D0%BE%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D1%96%D0%B2/tzng"
+              target="_blank">
+              <img class="mentions__logo--gnps" src="img/gnps-logo.png" alt="Логотип кафедри ГНПС">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Підвал з навігацією -->
+    <footer id="site-footer" class="site-footer">
+      <nav class="site-nav">
+        <ul class="site-nav__list">
+          <li class="site-nav__item">
+            <button class="site-nav__button site-nav__button--intro" type="button">Вступ</button>
+          </li>
+          <li class="site-nav__item">
+            <button class="site-nav__button site-nav__button--income-data" type="button">Вихідні дані</button>
+          </li>
+          <li class="site-nav__item">
+            <button class="site-nav__button site-nav__button--income-segments" type="button">Ділянки</button>
+          </li>
+          <li class="site-nav__item">
+            <button class="site-nav__button site-nav__button--results" type="button">Результати</button>
+          </li>
+          <li class="site-nav__item">
+            <button class="site-nav__button site-nav__button--drawing" type="button">Креслення</button>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+
+  </div>
+
+  <!-- Шаблон з рядком для таблиці з вихідними даними ділянок -->
+  <template id="segments-row">
+    <tr class="data__table-row">
+      <td class="data__table-cell data__table-cell--number"></td>
+      <td class="data__table-cell data__table-cell--segment">
+        <input type="text" class="data__table-input data__table-input--segment" placeholder="1-3" autocomplete="off">
+      </td>
+      <td class="data__table-cell data__table-cell--consumption">
+        <input type="number" class="data__table-input data__table-input--consumption" placeholder="9.5"
+          autocomplete="off">
+      </td>
+      <td class="data__table-cell data__table-cell--length">
+        <input type="number" class="data__table-input data__table-input--length" placeholder="5.3" autocomplete="off">
+      </td>
+      <td class="data__table-cell data__table-cell--resist-coef">
+        <input type="number" class="data__table-input data__table-input--resist-coef" placeholder="20"
+          autocomplete="off">
+      </td>
+      <td class="data__table-cell data__table-cell--movement-direction">
+        <select class="data__table-input data__table-input--select data__table-input--movement-direction">
+          <option value="0" selected>За годинниковою стрілкою</option>
+          <option value="-1">Проти годинникової стрілки</option>
+        </select>
+      </td>
+    </tr>
+  </template>
+
+  <!-- Шаблон з рядком для таблиці з результатами -->
+  <template id="results-row">
+    <tr class="data__table-row">
+      <td class="data__table-cell data__table-cell--segment"></td>
+      <td class="data__table-cell data__table-cell--length"></td>
+      <td class="data__table-cell data__table-cell--consumption"></td>
+      <td class="data__table-cell data__table-cell--diameter"></td>
+      <td class="data__table-cell data__table-cell--pressure-loss"></td>
+      <td class="data__table-cell data__table-cell--pressure-drop"></td>
+      <td class="data__table-cell data__table-cell--total-pressure-drop"></td>
+      <td class="data__table-cell data__table-cell--ending-pressure"></td>
+    </tr>
+  </template>
+
+  <!-- Головний скріпт -->
   <script src="js/main.min.js"></script>
 </body>
 
