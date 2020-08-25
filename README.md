@@ -64,8 +64,8 @@
     </tr>
     <tr align="center">
       <td>21,3x2,8</td><td>1,57</td><td>40х3,7</td><td>3,26</td>
-     </tr>
-     <tr align="center">
+    </tr>
+    <tr align="center">
       <td>26,8x2,8</td><td>	2,12</td><td>50х2,9</td><td>4,42</td>
     </tr>
     <tr align="center">
@@ -117,13 +117,13 @@
       <td></td><td></td><td>450х25,5</td><td>39,9</td>
     </tr>
     <tr align="center">
-		  <td></td><td></td><td>500х28,4</td><td>44,32</td>
+      <td></td><td></td><td>500х28,4</td><td>44,32</td>
     </tr>
     <tr align="center">
-		  <td></td><td></td><td>560х31,7</td><td>49,66</td>
+      <td></td><td></td><td>560х31,7</td><td>49,66</td>
     </tr>
     <tr align="center">
-		  <td></td><td></td><td>630х35,7</td><td>55,86</td>
+      <td></td><td></td><td>630х35,7</td><td>55,86</td>
     </tr>
     <tr align="center">
       <td colspan="4"><b>Абсолютна шорсткість труб</b></td>
