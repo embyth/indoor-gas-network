@@ -12,10 +12,14 @@ const isDev = !process.env.NODE_ENV;
 
 const scripts = () =>
   src([
-    `${source.scripts}libs/**/*.js`,
-    `${source.scripts}utils/**/*.js`,
-    `${source.scripts}modules/**/*.js`,
-    `${source.scripts}**/*.js`,
+    `${source.scripts}utils.js`,
+    `${source.scripts}formulas.js`,
+    `${source.scripts}validation.js`,
+    `${source.scripts}hamburger.js`,
+    `${source.scripts}segments.js`,
+    `${source.scripts}sections-handler.js`,
+    `${source.scripts}calculate.js`,
+    `${source.scripts}results.js`,
     `${source.scripts}main.js`], { sourcemaps: true })
     .pipe(babel())
     .pipe(concat('main.js'))
