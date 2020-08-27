@@ -1,17 +1,28 @@
 .container {
   position: relative;
-  width: auto;
+  width: 100%;
   margin: 0 auto;
   padding: padding(container-d);
-  max-width: $desktop-width;
 
   @media ($tablet) {
-    width: auto;
     padding: padding(container-t);
   }
 
   @media ($mobile) {
-    width: auto;
+    min-width: $mobile-width;
     padding: padding(container-m);
+  }
+}
+
+.section__container {
+  padding: 0 100px 0 50px;
+  padding-bottom: 80px;
+
+  @media ($tablet) {
+    padding: 0 0 80px;
+  }
+
+  @media ($mobile) {
+    padding: 0 0 60px;
   }
 }

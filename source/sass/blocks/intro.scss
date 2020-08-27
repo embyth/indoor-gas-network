@@ -1,0 +1,46 @@
+.intro__text {
+  font-size: font-size(intro);
+  line-height: 1.7;
+  padding: 20px 0;
+  width: 70%;
+  margin-bottom: 70px;
+
+  @media ($tablet) {
+    font-size: font-size(intro-tablet);
+    width: 80%;
+    line-height: 2;
+  }
+
+  @media ($mobile) {
+    width: 100%;
+    line-height: 1.8;
+    margin: 0 0 20px;
+  }
+}
+
+.intro__button--info {
+  margin-right: 50px;
+
+  @media ($mobile) {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.intro__button--begin {
+  color: $font-color-button--secondary;
+  background-color: $bg-color-button--secondary;
+
+  &:hover,
+  &:focus {
+    color: $font-color-button--primary;
+    background-color: $bg-color-button--primary;
+  }
+
+  @media ($mobile) {
+    width: 100%;
+    margin-top: 20px;
+  }
+}

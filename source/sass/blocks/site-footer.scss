@@ -1,0 +1,123 @@
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  background-color: $bg-color-footer;
+
+  @media ($tablet) {
+    width: 70%;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -100px;
+    bottom: 0;
+    border-style: solid;
+    border-width: 60px 100px 0 0;
+    border-color: $bg-color-footer transparent transparent transparent;
+  }
+
+  @media ($mobile) {
+    width: 100%;
+    background-color: $bg-color-footer--mobile;
+
+    &::after {
+      content: none;
+    }
+  }
+}
+
+.site-nav__list {
+  @include list-reset;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+
+  @media ($mobile) {
+    padding: 0 15px;
+  }
+}
+
+.site-nav__item {
+  position: relative;
+  padding: 18px 0;
+  margin-right: 50px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -35px;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 20px;
+    height: 2px;
+    background-color: $bg-color-footer;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+
+    &::after {
+      content: none;
+    }
+  }
+
+  @media ($mobile) {
+    padding: 10px 0;
+    margin-right: 20px;
+
+    &::after {
+      content: none;
+    }
+  }
+}
+
+.site-nav__button {
+  background-color: unset;
+  border: none;
+  user-select: none;
+  appearance: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  color: $font-color-nav;
+  transition: all 0.3s ease;
+  font-family: font-family(gotham);
+  font-size: font-size(navigation);
+  font-weight: font-weight(regular);
+
+  &--current {
+    color: $font-color-nav--active;
+    text-shadow: 0 0 5px $font-color-nav--active;
+    cursor: default;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    color: $font-color-nav--active;
+    text-shadow: 0 0 5px $font-color-nav--active;
+  }
+
+  &:active {
+    transition: none;
+    opacity: 0.3;
+  }
+
+  &[disabled="disabled"] {
+    opacity: 0.3;
+    cursor: not-allowed;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: inherit;
+      text-shadow: unset;
+    }
+  }
+}

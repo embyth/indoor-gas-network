@@ -21,11 +21,3 @@
   font-display: swap;
   src: local("GothamPro-Medium"), local("GothamProMedium"), url("../fonts/GothamPro-Medium.woff2") format("woff2"), url("../fonts/GothamPro-Medium.woff") format("woff");
 }
-
-@font-face {
-  font-family: "Gotham";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local("GothamPro-Bold"), local("GothamProBold"), url("../fonts/GothamPro-Bold.woff2") format("woff2"), url("../fonts/GothamPro-Bold.woff") format("woff");
-}

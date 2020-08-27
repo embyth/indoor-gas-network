@@ -1,1 +1,33 @@
 // Buttons
+.button {
+  appearance: none;
+  user-select: none;
+  margin: 0;
+  background-color: $bg-color-button--primary;
+  color: $font-color-button--primary;
+  padding: 12px 45px;
+  font-family: font-family(gotham);
+  font-weight: font-weight(regular);
+  font-size: font-size(button);
+  line-height: 1.1;
+  text-transform: uppercase;
+  border: 1px solid $border-color-button--primary;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    background-color: $bg-color-button--hover;
+    color: $font-color-button--secondary;
+  }
+
+  &:active {
+    transition: none;
+    opacity: 0.3;
+  }
+
+  @media ($tablet) {
+    font-size: font-size(button-tablet);
+  }
+}

@@ -1,0 +1,646 @@
+.data__fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.data__fieldset-replacer {
+  display: flex;
+  flex-flow: row wrap;
+
+  @media ($mobile) {
+    flex-flow: column nowrap;
+  }
+}
+
+.data__item {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 25px;
+  position: relative;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.data__container {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+
+  &--right {
+    margin-left: 150px;
+
+    .data__item:last-of-type {
+      margin-top: auto;
+    }
+  }
+
+  &--segments {
+    width: 80%;
+  }
+
+  &--results {
+    width: 100%;
+  }
+
+  @media ($tablet) {
+    width: 45%;
+
+    &--right {
+      margin-left: 30px;
+    }
+
+    &--segments {
+      width: 95%;
+      overflow-x: auto;
+    }
+
+    &--results {
+      width: 95%;
+      overflow-x: auto;
+    }
+  }
+
+  @media ($mobile) {
+    width: 100%;
+
+    &--right {
+      margin-left: 0;
+      margin-top: 25px;
+    }
+  }
+}
+
+.data__label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: font-size(label);
+
+  @media ($tablet) {
+    font-size: font-size(label-tablet);
+  }
+}
+
+.data__input--definition {
+  font-style: normal;
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  z-index: -1;
+}
+
+.data__input--dimension {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  z-index: -1;
+}
+
+.data__input {
+  @include hide-arrow-input-number();
+
+  font-size: font-size(input);
+  color: $font-color-input;
+  background-color: $bg-color-input;
+  border: 1px solid $border-color-input;
+  border-radius: 0;
+  padding: 7px 15px 7px 30px;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border: 1px solid $border-color-input--focus;
+  }
+
+  &::placeholder {
+    color: $font-color-input--placeholder;
+    font-weight: font-weight(regular);
+  }
+
+  &--error {
+    border: 1px solid $border-color-input--error;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border: 1px solid $border-color-input--error;
+    }
+  }
+
+  &--allowable-pressure {
+    padding: 7px 35px 7px 55px;
+  }
+
+  &--starting-pressure {
+    padding: 7px 35px 7px 35px;
+  }
+
+  &--gas-starting {
+    padding: 7px 55px 7px 35px;
+  }
+
+  &--gas-viscosity {
+    padding: 7px 50px 7px 65px;
+  }
+
+  &--segments-amount {
+    padding: 7px 40px 7px 30px;
+  }
+
+  &--overload-factor {
+    padding: 7px 7px 7px 30px;
+  }
+
+  &--average-temperature {
+    padding: 7px 40px 7px 40px;
+  }
+
+  &--calc-accurance {
+    padding: 7px 30px 7px 30px;
+  }
+
+  &--atmospheric-pressure {
+    padding: 7px 35px 7px 50px;
+  }
+
+  &--gas-speed {
+    padding: 7px 45px 7px 55px;
+  }
+
+  &--gas-consumption {
+    padding: 7px 65px 7px 45px;
+  }
+
+  @media ($tablet) {
+    font-size: font-size(input-tablet);
+  }
+}
+
+.data__table-input {
+  @include hide-arrow-input-number();
+
+  font-size: font-size(input);
+  color: $font-color-input;
+  background-color: $bg-color-input;
+  border: 1px solid $border-color-input;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  padding: 7px 10px;
+  outline: 1px solid $border-color-input;
+
+  &::placeholder {
+    color: $font-color-input--placeholder;
+    font-weight: font-weight(regular);
+  }
+
+  &--select {
+    background-color: transparent;
+
+    > option {
+      background-color: $bg-color-input--option;
+      color: $font-color-input--option;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    outline: 1px solid $border-color-input--focus;
+    border: 1px solid $border-color-input;
+  }
+
+  &--error {
+    outline: 1px solid $border-color-input--error;
+
+    &:hover,
+    &:focus,
+    &:active {
+      outline: 1px solid $border-color-input--error;
+    }
+  }
+
+  @media ($tablet) {
+    font-size: font-size(input-tablet);
+  }
+}
+
+.data__table-head,
+.data__table-body {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  text-align: center;
+
+  dfn {
+    font-style: normal;
+  }
+
+  tr {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+  }
+}
+
+.data__table-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  position: relative;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.data__table-head {
+  .data__table-cell {
+    padding: 10px 5px;
+  }
+}
+
+.data__table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+
+  .data__input--dimension,
+  .data__input--definition {
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+
+  &--segments {
+    .data__table-cell {
+      &--number {
+        width: 10%;
+      }
+
+      &--segment {
+        width: 10%;
+
+        .data__table-input {
+          text-align: center;
+        }
+      }
+
+      &--consumption {
+        width: 20%;
+
+        .data__table-input {
+          padding: 5px 70px 5px 40px;
+        }
+      }
+
+      &--length {
+        width: 15%;
+
+        .data__table-input {
+          padding: 5px 30px 5px 30px;
+        }
+      }
+
+      &--resist-coef {
+        width: 20%;
+
+        .data__table-input {
+          padding: 5px 30px 5px 40px;
+        }
+      }
+
+      &--movement-direction {
+        width: 25%;
+      }
+    }
+  }
+
+  &--results {
+    .data__table-cell {
+      padding: 7px 5px;
+
+      &--segment {
+        width: 7%;
+      }
+
+      &--length {
+        width: 10%;
+      }
+
+      &--consumption {
+        width: 15%;
+      }
+
+      &--diameter {
+        width: 12%;
+      }
+
+      &--pressure-loss {
+        width: 15%;
+      }
+
+      &--pressure-drop {
+        width: 13%;
+      }
+
+      &--total-pressure-drop {
+        width: 13%;
+      }
+
+      &--ending-pressure {
+        width: 15%;
+      }
+    }
+  }
+
+  @media ($tablet) {
+    &--segments {
+      .data__table-cell {
+        &--number {
+          width: 14%;
+        }
+
+        &--segment {
+          width: 14%;
+
+          .data__table-input {
+            text-align: center;
+          }
+        }
+
+        &--consumption {
+          width: 24%;
+
+          .data__table-input {
+            padding: 5px 60px 5px 37px;
+          }
+        }
+
+        &--length {
+          width: 15%;
+
+          .data__table-input {
+            padding: 5px 25px 5px 27px;
+          }
+        }
+
+        &--resist-coef {
+          width: 15%;
+
+          .data__table-input {
+            padding: 5px 25px 5px 33px;
+          }
+        }
+
+        &--movement-direction {
+          width: 18%;
+        }
+      }
+    }
+
+    &--results {
+      margin-bottom: 20px;
+
+      .data__table-cell {
+        padding: 7px 5px;
+
+        &--segment {
+          width: 120px;
+        }
+
+        &--length {
+          width: 130px;
+        }
+
+        &--consumption {
+          width: 200px;
+        }
+
+        &--diameter {
+          width: 170px;
+        }
+
+        &--pressure-loss {
+          width: 200px;
+        }
+
+        &--pressure-drop {
+          width: 200px;
+        }
+
+        &--total-pressure-drop {
+          width: 200px;
+        }
+
+        &--ending-pressure {
+          width: 200px;
+        }
+      }
+    }
+  }
+
+  @media ($mobile) {
+    &--segments {
+      margin-bottom: 20px;
+
+      .data__table-cell {
+        &--number {
+          width: 100px;
+        }
+
+        &--segment {
+          width: 100px;
+        }
+
+        &--consumption {
+          width: 200px;
+        }
+
+        &--length {
+          width: 150px;
+        }
+
+        &--resist-coef {
+          width: 150px;
+        }
+
+        &--movement-direction {
+          width: 150px;
+        }
+      }
+    }
+  }
+}
+
+.data__button {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 1px;
+    top: 50%;
+    right: calc(50% - 60px);
+    transform: translateY(-50%);
+    background-color: $light-primary;
+    transition: all 0.3s ease;
+    opacity: 1;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: calc(50% - 70px);
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 3px 0 3px 10px;
+    border-color: transparent transparent transparent $light-primary;
+    transition: all 0.3s ease;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      width: 35px;
+      right: calc(50% - 70px);
+      background-color: $black;
+    }
+
+    &::before {
+      right: calc(50% - 80px);
+      border-color: transparent transparent transparent $black;
+    }
+  }
+
+  &--calc {
+    width: 100%;
+
+    &::after {
+      right: calc(50% - 100px);
+    }
+
+    &::before {
+      right: calc(50% - 110px);
+    }
+
+    &:hover,
+    &:focus {
+      &::after {
+        right: calc(50% - 110px);
+      }
+
+      &::before {
+        right: calc(50% - 120px);
+      }
+    }
+  }
+}
+
+.data__footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 20px 0;
+
+  .data__label {
+    padding-left: 25px;
+    position: relative;
+    margin-bottom: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1px solid white;
+      transition: all 0.3s ease;
+    }
+  }
+
+  .data__input:checked {
+    ~ .data__label {
+      &::after {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: $bg-color-input--radio;
+        transition: all 0.3s ease;
+      }
+
+      &::before {
+        border: 1px solid $border-color-input--focus;
+      }
+    }
+  }
+
+  .data__input:hover,
+  .data__input:focus {
+    ~ .data__label {
+      &::before {
+        border: 1px solid $border-color-input--focus;
+      }
+    }
+  }
+
+  @media ($tablet) {
+    width: 95%;
+  }
+
+  @media ($mobile) {
+    flex-flow: column nowrap;
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+.data__footer-item {
+  display: flex;
+  flex-flow: row wrap;
+  width: 30%;
+  margin-bottom: 0;
+
+  @media ($tablet) {
+    width: 43%;
+  }
+
+  @media ($mobile) {
+    width: 100%;
+
+    &:last-of-type {
+      margin-top: 20px;
+    }
+  }
+}
+
+.data__legend {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+}
+
+.data__radio-wrapper {
+  margin-top: 15px;
+  width: auto;
+
+  &:first-of-type {
+    margin-right: 30px;
+  }
+}

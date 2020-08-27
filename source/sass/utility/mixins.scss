@@ -76,4 +76,18 @@
     -webkit-animation-fill-mode: both;
   }
 }
+
+@mixin hide-arrow-input-number() {
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+}
 /* stylelint-enable */
