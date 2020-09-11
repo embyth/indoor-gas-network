@@ -3,6 +3,10 @@
 (function () {
   // Глобальні константи
   window.CONSTANTS = {
+    KEY_CODES: {
+      ENTER: 13,
+      ESC: 27
+    },
     ROUGHNESS: {
       STEEL: 0.01,
       POLY: 0.002
@@ -78,6 +82,10 @@
     // Розблокуємо прокрутку сторінки
     unblockBodyScroll: function () {
       document.body.style.overflowY = 'auto';
+    },
+    // Перевірка на натиснення кнопки ESC
+    isEscKey: function (evt) {
+      return evt.keyCode === window.CONSTANTS.KEY_CODES.ESC;
     },
   };
 })();

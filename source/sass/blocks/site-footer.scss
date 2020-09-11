@@ -4,6 +4,7 @@
   left: 0;
   width: 60%;
   background-color: $bg-color-footer;
+  z-index: 5;
 
   @media ($tablet) {
     width: 70%;
