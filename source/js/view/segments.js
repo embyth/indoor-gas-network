@@ -1,54 +1,58 @@
 import AbstractView from './abstract.js';
 import {getRandomNumber, getRandomFloatNumber, getRandomValue, highlightInput, resetHighlightInput} from '../utils/common.js';
-import {RESIST_COEFS, ErrorMessage} from '../const.js';
+import {RESIST_COEFS, ErrorMessage, PipeType} from '../const.js';
 
-const getSegmentsRowsTemplate = (amount) => {
-  if (!amount) {
-    return ``;
-  }
+const getSegmentsRowsTemplate = (data) => {
+  const {segmentsAmount, segmentsNames, consumptions, lengths, resistCoefs, moveDirections} = data;
 
-  let result = ``;
+  let template = ``;
 
-  for (let i = 1; i <= amount; i++) {
-    result += (
+  for (let i = 0; i < segmentsAmount; i++) {
+    const segmentNumber = i + 1;
+    template += (
       `<tr class="data__table-row">
-        <td class="data__table-cell data__table-cell--number">Ділянка ${i}</td>
+        <td class="data__table-cell data__table-cell--number">Ділянка ${segmentNumber}</td>
         <td class="data__table-cell data__table-cell--segment">
-          <input type="text" class="data__table-input data__table-input--segment" placeholder="${getRandomNumber(1, 15)}-${getRandomNumber(1, 15)}" autocomplete="off" required>
+          <input type="text" class="data__table-input data__table-input--segment" placeholder="${getRandomNumber(1, 15)}-${getRandomNumber(1, 15)}" autocomplete="off" required value="${segmentsNames ? segmentsNames[i] : ``}">
         </td>
         <td class="data__table-cell data__table-cell--consumption">
-          <dfn class="data__input--definition">Q<sub>${i}</sub></dfn>
-          <input type="number" class="data__table-input data__table-input--consumption" placeholder="${getRandomFloatNumber(1, 15, 2)}" autocomplete="off" min="0" max="100" step="0.01" required>
+          <dfn class="data__input--definition">Q<sub>${segmentNumber}</sub></dfn>
+          <input type="number" class="data__table-input data__table-input--consumption" placeholder="${getRandomFloatNumber(1, 15, 2)}" autocomplete="off" min="0" max="100" step="0.01" required value="${consumptions ? consumptions[i] : ``}">
           <span class="data__input--dimension">м<sup>3</sup>/год</span>
         </td>
         <td class="data__table-cell data__table-cell--length">
-          <dfn class="data__input--definition">l<sub>${i}</sub></dfn>
+          <dfn class="data__input--definition">l<sub>${segmentNumber}</sub></dfn>
           <input type="number" class="data__table-input data__table-input--length" placeholder="${getRandomFloatNumber(1, 12, 1)}" autocomplete="off"
-            min="0.1" max="100" step="0.01" required>
+            min="0.1" max="100" step="0.01" required value="${lengths ? lengths[i] : ``}">
           <span class="data__input--dimension">м</span>
         </td>
         <td class="data__table-cell data__table-cell--resist-coef">
-          <dfn class="data__input--definition">a<sub>${i}</sub></dfn>
+          <dfn class="data__input--definition">a<sub>${segmentNumber}</sub></dfn>
           <input type="number" class="data__table-input data__table-input--resist-coef" placeholder="${getRandomValue(RESIST_COEFS)}"
-            autocomplete="off" min="20" max="450" step="5" required>
+            autocomplete="off" min="20" max="450" step="5" required value="${resistCoefs ? resistCoefs[i] : ``}">
           <span class="data__input--dimension">%</span>
         </td>
         <td class="data__table-cell data__table-cell--movement-direction">
           <select class="data__table-input data__table-input--select data__table-input--movement-direction">
-            <option value="0" selected>Горизонтальний</option>
+          ${moveDirections
+        ? `<option value="0" ${moveDirections[i] === 0 ? `selected` : ``}>Горизонтальний</option>
+            <option value="-1" ${moveDirections[i] === -1 ? `selected` : ``}>Вгору</option>
+            <option value="1" ${moveDirections[i] === 1 ? `selected` : ``}>Вниз</option>`
+        : `<option value="0" selected>Горизонтальний</option>
             <option value="-1">Вгору</option>
-            <option value="1">Вниз</option>
+            <option value="1">Вниз</option>`}
           </select>
         </td>
       </tr>`
     );
   }
 
-  return result;
+  return template;
 };
 
-const createSegmentsTemplate = (segmentsAmount) => {
-  const segmentsRowsTemplate = getSegmentsRowsTemplate(segmentsAmount);
+const createSegmentsTemplate = (data) => {
+  const pipeType = data.pipeType ? data.pipeType : PipeType.STEEL;
+  const segmentsRowsTemplate = getSegmentsRowsTemplate(data);
 
   return (
     `<section id="income-segments">
@@ -81,12 +85,12 @@ const createSegmentsTemplate = (segmentsAmount) => {
                 <span class="data__legend">Тип газопроводів:</span>
                 <div class="data__radio-wrapper">
                   <input type="radio" class="data__input data__input--pipe-steel visually-hidden" id="pipe-steel"
-                    value="steel" name="pipe-type" checked>
+                    value="steel" name="pipe-type" ${pipeType === PipeType.STEEL ? `checked` : ``}>
                   <label for="pipe-steel" class="data__label">Сталеві</label>
                 </div>
                 <div class="data__radio-wrapper">
                   <input type="radio" class="data__input data__input--pipe-poly visually-hidden" id="pipe-poly"
-                    value="poly" name="pipe-type">
+                    value="poly" name="pipe-type" ${pipeType === PipeType.POLY ? `checked` : ``}>
                   <label for="pipe-poly" class="data__label">Поліетиленові</label>
                 </div>
               </div>
@@ -111,7 +115,7 @@ export default class Segments extends AbstractView {
   }
 
   getTemplate() {
-    return createSegmentsTemplate(this._getSegmentsQuantity());
+    return createSegmentsTemplate(this._getData());
   }
 
   setCalcButtonClickHandler(callback) {
@@ -131,8 +135,8 @@ export default class Segments extends AbstractView {
     this._callback.click();
   }
 
-  _getSegmentsQuantity() {
-    return this._incomeDataModel.getData().segmentsAmount;
+  _getData() {
+    return this._incomeDataModel.getData();
   }
 
   _checkInputValidity(input) {
@@ -190,7 +194,7 @@ export default class Segments extends AbstractView {
     const moveDirections = [];
     const pipeType = [...pipeTypeRadios].find((radio) => radio.checked).value;
 
-    for (let i = 0; i < this._getSegmentsQuantity(); i++) {
+    for (let i = 0; i < this._getData().segmentsAmount; i++) {
       segmentsNames.push(segmentsCells[i].value);
       consumptions.push(parseFloat(consumptionCells[i].value));
       lengths.push(parseFloat(lengthCells[i].value));

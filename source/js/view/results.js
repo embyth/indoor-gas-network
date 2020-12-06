@@ -1,10 +1,6 @@
 import AbstractView from './abstract.js';
 
 const getResultsBySegmentsTemplate = (results) => {
-  if (Object.keys(results).length === 0 && results.constructor === Object) {
-    return ``;
-  }
-
   const {segmentsAmount, segmentsNames, lengths, consumptions, estimatedDiameters, pressureLosses, pressureChanges, sumPressureChanges, endingPressures} = results;
 
   let template = ``;

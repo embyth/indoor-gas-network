@@ -44,7 +44,6 @@ export default class Page {
   }
 
   _pageSectionHandler(type) {
-    this._currentSection = type;
     this._clearPage();
     this._handleNavButtonsActiveState(type);
 
@@ -65,13 +64,25 @@ export default class Page {
         render(this._contentContainer, this._resultsComponent, RenderPosition.BEFOREEND);
         break;
     }
+
+    this._currentSection = type;
   }
 
   _clearPage() {
-    remove(this._introComponent);
-    remove(this._incomeComponent);
-    remove(this._segmentsComponent);
-    remove(this._resultsComponent);
+    switch (this._currentSection) {
+      case SECTION.INTRO:
+        remove(this._introComponent);
+        break;
+      case SECTION.DATA:
+        remove(this._incomeComponent);
+        break;
+      case SECTION.SEGMENTS:
+        remove(this._segmentsComponent);
+        break;
+      case SECTION.RESULTS:
+        remove(this._resultsComponent);
+        break;
+    }
   }
 
   _setPageHandlers() {
