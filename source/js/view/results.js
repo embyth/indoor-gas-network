@@ -2,7 +2,7 @@ import AbstractView from './abstract.js';
 
 const createResultsTemplate = () => {
   return (
-    `<section id="results" class="visually-hidden">
+    `<section id="results">
       <div class="section__container">
         <h2 class="section-heading">Результати гідравлічного розрахунку будинкової мережі</h2>
 

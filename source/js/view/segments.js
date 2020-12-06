@@ -6,7 +6,7 @@ const createSegmentsTemplate = () => {
       <div class="section__container">
         <h2 class="section-heading">Вихідні дані ділянок мережі</h2>
 
-        <fieldset class="data__fieldset" disabled>
+        <fieldset class="data__fieldset">
           <div class="data__fieldset-replacer">
             <div class="data__container data__container--segments">
 
@@ -53,7 +53,25 @@ const createSegmentsTemplate = () => {
 };
 
 export default class Segments extends AbstractView {
+  constructor() {
+    super();
+
+    this._calcButtonClickHandler = this._calcButtonClickHandler.bind(this);
+  }
+
   getTemplate() {
     return createSegmentsTemplate();
+  }
+
+  setCalcButtonClickHandler(callback) {
+    this._callback.click = callback;
+
+    this.getElement().querySelector(`.data__button--calc`).addEventListener(`click`, this._calcButtonClickHandler);
+  }
+
+  _calcButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.click();
   }
 }

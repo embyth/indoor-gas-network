@@ -111,7 +111,24 @@ const createIncomeDataTemplate = () => {
 };
 
 export default class Income extends AbstractView {
+  constructor() {
+    super();
+
+    this._nextButtonClickHandler = this._nextButtonClickHandler.bind(this);
+  }
+
   getTemplate() {
     return createIncomeDataTemplate();
+  }
+
+  setNextButtonClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().querySelector(`.data__button--next`).addEventListener(`click`, this._nextButtonClickHandler);
+  }
+
+  _nextButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.click();
   }
 }

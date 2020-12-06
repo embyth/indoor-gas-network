@@ -61,3 +61,10 @@ export const RenderPosition = {
   BEFOREEND: `beforeend`,
   BEFOREBEGIN: `beforebegin`,
 };
+
+export const SECTION = {
+  INTRO: `intro`,
+  DATA: `income-data`,
+  SEGMENTS: `income-segments`,
+  RESULTS: `results`,
+};

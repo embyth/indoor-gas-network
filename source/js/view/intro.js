@@ -22,7 +22,24 @@ const createIntroTemplate = () => {
 };
 
 export default class Intro extends AbstractView {
+  constructor() {
+    super();
+
+    this._beginButtonClickHandler = this._beginButtonClickHandler.bind(this);
+  }
+
   getTemplate() {
     return createIntroTemplate();
+  }
+
+  setBeginButtonClickHandler(callback) {
+    this._callback.click = callback;
+    this.getElement().querySelector(`.intro__button--begin`).addEventListener(`click`, this._beginButtonClickHandler);
+  }
+
+  _beginButtonClickHandler(evt) {
+    evt.preventDefault();
+
+    this._callback.click();
   }
 }
