@@ -1,1 +1,3 @@
-.source/js/libs/**/*.js
+gulp
+gulpfile.js
+webpack.config.js

@@ -1,23 +1,24 @@
-'use strict';
-
-const { paths: { source, destination } } = require('../paths');
-const { src, dest } = require('gulp');
-const gulpIf = require('gulp-if');
-const plumber = require('gulp-plumber');
-const rename = require('gulp-rename');
-const sass = require('gulp-sass');
-const postcss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
-const csso = require('gulp-csso');
-const browserSync = require('browser-sync').get('Local Server');
+import {paths} from '../paths.js';
+import pkg from 'gulp';
+import gulpIf from 'gulp-if';
+import plumber from 'gulp-plumber';
+import wait from 'gulp-wait';
+import rename from 'gulp-rename';
+import sass from 'gulp-sass';
+import postcss from 'gulp-postcss';
+import autoprefixer from 'autoprefixer';
+import csso from 'gulp-csso';
+import {browserSync} from './server.js';
 
 const isDev = !process.env.NODE_ENV;
+const {source, destination} = paths;
+const {src, dest} = pkg;
 
-const styles = () => {
+export const styles = () => {
   const sassOptions = {
     outputStyle: 'expanded',
     sourceComments: true,
-    includePaths: ['.']
+    includePaths: [source.styles]
   };
   const postCssPlugins = [autoprefixer()];
   const cssoOptions = {
@@ -27,6 +28,7 @@ const styles = () => {
 
   return src(`${source.styles}style.{scss,sass}`, { sourcemaps: true })
     .pipe(plumber())
+    .pipe(wait(200))
     .pipe(sass(sassOptions)).on('error', sass.logError)
     .pipe(postcss(postCssPlugins))
     .pipe(csso(cssoOptions))
@@ -34,5 +36,3 @@ const styles = () => {
     .pipe(gulpIf(isDev, dest(destination.styles, { sourcemaps: true }), dest(destination.styles)))
     .pipe(gulpIf(isDev, browserSync.stream()));
 };
-
-module.exports = styles;
