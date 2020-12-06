@@ -1,6 +1,10 @@
 export default class ResultsData {
+  constructor() {
+    this._results = {};
+  }
+
   setResults(results) {
-    this._results = results;
+    this._results = Object.assign({}, results);
   }
 
   getResults() {

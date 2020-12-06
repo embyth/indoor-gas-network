@@ -2,6 +2,7 @@ import IntroView from '../view/intro.js';
 import IncomeView from '../view/income.js';
 import SegmentsView from '../view/segments.js';
 import ResultsView from '../view/results.js';
+import {calculate} from '../utils/calculate.js';
 import {blockBodyScroll, unblockBodyScroll, isEscKey} from '../utils/common.js';
 import {render, remove} from '../utils/render.js';
 import {RenderPosition, SECTION} from '../const.js';
@@ -89,6 +90,7 @@ export default class Page {
   }
 
   _handleCalcButtonClick() {
+    calculate(this._incomeDataModel.getData(), this._resultsModel);
     [...this._navigationButtons].find((button) => button.dataset.section === SECTION.RESULTS).disabled = false;
     this._pageSectionHandler(SECTION.RESULTS);
   }

@@ -71,6 +71,11 @@ export const SECTION = {
   RESULTS: `results`,
 };
 
+export const PipeType = {
+  STEEL: `steel`,
+  POLY: `poly`,
+};
+
 export const ErrorMessage = {
   VALUE_MISSING: `Введіть дані`,
   RANGE_OVERFLOW: `Значення не може бути більше `,
