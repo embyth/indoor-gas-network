@@ -1,10 +1,12 @@
-'use strict';
+import IncomeDataModel from './model/income-data.js';
+import ResultsModel from './model/results.js';
+import PagePresenter from './presenter/page.js';
 
-(function () {
-  var domLoadHandler = function () {
-    window.sections.activate();
-    window.hamburger.activate();
-  };
+const contentContainer = document.querySelector(`#site-content`);
 
-  document.addEventListener('DOMContentLoaded', domLoadHandler);
-})();
+const incomeDataModel = new IncomeDataModel();
+const resultsModel = new ResultsModel();
+
+const pagePresenter = new PagePresenter(contentContainer, incomeDataModel, resultsModel);
+
+pagePresenter.init();
