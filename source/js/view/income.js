@@ -1,4 +1,6 @@
 import AbstractView from './abstract.js';
+import {highlightInput, resetHighlightInput} from '../utils/common.js';
+import {ErrorMessage} from '../const.js';
 
 const createIncomeDataTemplate = () => {
   return (
@@ -111,8 +113,10 @@ const createIncomeDataTemplate = () => {
 };
 
 export default class Income extends AbstractView {
-  constructor() {
+  constructor(incomeDataModel) {
     super();
+
+    this._incomeDataModel = incomeDataModel;
 
     this._nextButtonClickHandler = this._nextButtonClickHandler.bind(this);
   }
@@ -129,6 +133,67 @@ export default class Income extends AbstractView {
   _nextButtonClickHandler(evt) {
     evt.preventDefault();
 
+    if (!this._isUserDataValid()) {
+      return;
+    }
+
+    this._incomeDataModel.setData(this._collectData());
     this._callback.click();
+  }
+
+  _checkInputValidity(input) {
+    if (input.validity.valueMissing) {
+      input.setCustomValidity(ErrorMessage.VALUE_MISSING);
+      input.reportValidity();
+      highlightInput(input);
+    } else if (input.validity.rangeUnderflow) {
+      input.setCustomValidity(ErrorMessage.RANGE_UNDERFLOW + input.min);
+      input.reportValidity();
+      highlightInput(input);
+    } else if (input.validity.rangeOverflow) {
+      input.setCustomValidity(ErrorMessage.RANGE_OVERFLOW + input.max);
+      input.reportValidity();
+      highlightInput(input);
+    } else {
+      input.setCustomValidity(``);
+      resetHighlightInput(input);
+    }
+  }
+
+  _isUserDataValid() {
+    const inputs = this.getElement().querySelectorAll(`input`);
+    const notValidInputs = [];
+
+    inputs.forEach((input) => {
+      if (!input.checkValidity()) {
+        highlightInput(input);
+        notValidInputs.push(input);
+        input.addEventListener(`input`, (evt) => {
+          this._checkInputValidity(evt.target);
+        });
+      }
+    });
+
+    if (notValidInputs.length) {
+      this._checkInputValidity(notValidInputs[0]);
+    }
+
+    return notValidInputs.length === 0;
+  }
+
+  _collectData() {
+    return {
+      allowablePressure: +this.getElement().querySelector(`#allowable-pressure`).value,
+      startingPressure: +this.getElement().querySelector(`#starting-pressure`).value,
+      density: +this.getElement().querySelector(`#gas-density`).value,
+      viscosity: +this.getElement().querySelector(`#gas-viscosity`).value * Math.pow(10, -6),
+      segmentsAmount: +this.getElement().querySelector(`#segments-amount`).value,
+      overloadFactor: +this.getElement().querySelector(`#overload-factor`).value,
+      averageTemperature: +this.getElement().querySelector(`#average-temperature`).value + 273.15,
+      calcAccurance: +this.getElement().querySelector(`#calc-accurance`).value / 100,
+      atmosphericPressure: +this.getElement().querySelector(`#atmospheric-pressure`).value,
+      maxVelosity: +this.getElement().querySelector(`#gas-speed`).value,
+      averageConsumption: +this.getElement().querySelector(`#gas-consumption`).value,
+    };
   }
 }

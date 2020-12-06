@@ -16,7 +16,7 @@ export default class Page {
     this._currentSection = SECTION.INTRO;
 
     this._introComponent = new IntroView();
-    this._incomeComponent = new IncomeView();
+    this._incomeComponent = new IncomeView(this._incomeDataModel);
     this._segmentsComponent = new SegmentsView(this._incomeDataModel);
     this._resultsComponent = new ResultsView(this._resultsModel);
 
@@ -84,10 +84,12 @@ export default class Page {
   }
 
   _handleNextButtonClick() {
+    [...this._navigationButtons].find((button) => button.dataset.section === SECTION.SEGMENTS).disabled = false;
     this._pageSectionHandler(SECTION.SEGMENTS);
   }
 
   _handleCalcButtonClick() {
+    [...this._navigationButtons].find((button) => button.dataset.section === SECTION.RESULTS).disabled = false;
     this._pageSectionHandler(SECTION.RESULTS);
   }
 

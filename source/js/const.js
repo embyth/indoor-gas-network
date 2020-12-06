@@ -1,6 +1,6 @@
 export const SHAKE_ANIMATION_TIMEOUT = 600;
 
-export const KEY_CODES = {
+export const KeyCode = {
   ENTER: 13,
   ESC: 27
 };
@@ -9,6 +9,8 @@ export const ROUGHNESS = {
   STEEL: 0.01,
   POLY: 0.002
 };
+
+export const RESIST_COEFS = [25, 20, 450, 300, 120, 50];
 
 export const DIAMETERS = {
   STEEL: {
@@ -67,4 +69,10 @@ export const SECTION = {
   DATA: `income-data`,
   SEGMENTS: `income-segments`,
   RESULTS: `results`,
+};
+
+export const ErrorMessage = {
+  VALUE_MISSING: `Введіть дані`,
+  RANGE_OVERFLOW: `Значення не може бути більше `,
+  RANGE_UNDERFLOW: `Значення не може бути менше `
 };

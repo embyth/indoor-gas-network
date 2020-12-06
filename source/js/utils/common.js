@@ -1,4 +1,4 @@
-import {KEY_CODES} from '../const.js';
+import {KeyCode} from '../const.js';
 
 // Метод повертає випадковий індекс
 export const getRandomIndex = (number) => {
@@ -32,5 +32,23 @@ export const unblockBodyScroll = () => {
 
 // Перевірка на натиснення кнопки ESC
 export const isEscKey = (evt) => {
-  return evt.keyCode === KEY_CODES.ESC;
+  return evt.keyCode === KeyCode.ESC;
+};
+
+// Виділяємо поле вводу
+export const highlightInput = (input) => {
+  if (input.classList.contains(`data__input`)) {
+    input.classList.add(`data__input--error`);
+  } else {
+    input.classList.add(`data__table-input--error`);
+  }
+};
+
+// Знімаємо виділення поля вводу
+export const resetHighlightInput = (input) => {
+  if (input.classList.contains(`data__input`)) {
+    input.classList.remove(`data__input--error`);
+  } else {
+    input.classList.remove(`data__table-input--error`);
+  }
 };
