@@ -1,6 +1,4 @@
 import AbstractView from './abstract.js';
-import {highlightInput, resetHighlightInput} from '../utils/common.js';
-import {ErrorMessage} from '../const.js';
 
 const createIncomeDataTemplate = (data) => {
   const {allowablePressure, startingPressure, density, viscosity, segmentsAmount, overloadFactor, averageTemperature, calcAccurance, atmosphericPressure, maxVelosity, averageConsumption} = data;
@@ -42,7 +40,7 @@ const createIncomeDataTemplate = (data) => {
                 <label for="gas-viscosity" class="data__label">Кінематична в'язкість газу за норм. умов</label>
                 <dfn class="data__input--definition">υ×10<sup>-6</sup></dfn>
                 <input type="number" class="data__input data__input--gas-viscosity" id="gas-viscosity"
-                  placeholder="12.39" min="10" max="15" step="0.001" autocomplete="off" required value="${viscosity ? viscosity : ``}">
+                  placeholder="12.39" min="10" max="15" step="0.001" autocomplete="off" required value="${viscosity ? viscosity * Math.pow(10, 6) : ``}">
                 <span class="data__input--dimension">м<sup>2</sup>/с</span>
               </div>
 
@@ -67,7 +65,7 @@ const createIncomeDataTemplate = (data) => {
                 <label for="average-temperature" class="data__label">Середня температура газу в мережі</label>
                 <dfn class="data__input--definition">Т<sub>ср</sub></dfn>
                 <input type="number" class="data__input data__input--average-temperature" id="average-temperature"
-                  placeholder="12" min="-10" max="50" autocomplete="off" required value="${averageTemperature ? averageTemperature : ``}">
+                  placeholder="12" min="-10" max="50" autocomplete="off" required value="${averageTemperature ? averageTemperature - 273.15 : ``}">
                 <span class="data__input--dimension"><sup>о</sup>С</span>
               </div>
 
@@ -75,7 +73,7 @@ const createIncomeDataTemplate = (data) => {
                 <label for="calc-accurance" class="data__label">Точність розрахунку</label>
                 <dfn class="data__input--definition">ε</dfn>
                 <input type="number" class="data__input data__input--calc-accurance" id="calc-accurance"
-                  placeholder="1" min="0.1" max="100" step="0.001" autocomplete="off" required value="${calcAccurance ? calcAccurance : ``}">
+                  placeholder="1" min="0.1" max="100" step="0.001" autocomplete="off" required value="${calcAccurance ? calcAccurance * 100 : ``}">
                 <span class="data__input--dimension">%</span>
               </div>
 
@@ -139,52 +137,13 @@ export default class Income extends AbstractView {
   _nextButtonClickHandler(evt) {
     evt.preventDefault();
 
-    if (!this._isUserDataValid()) {
+    if (!this.isUserDataValid()) {
+      this.shake();
       return;
     }
 
     this._incomeDataModel.setData(this._collectData());
     this._callback.click();
-  }
-
-  _checkInputValidity(input) {
-    if (input.validity.valueMissing) {
-      input.setCustomValidity(ErrorMessage.VALUE_MISSING);
-      input.reportValidity();
-      highlightInput(input);
-    } else if (input.validity.rangeUnderflow) {
-      input.setCustomValidity(ErrorMessage.RANGE_UNDERFLOW + input.min);
-      input.reportValidity();
-      highlightInput(input);
-    } else if (input.validity.rangeOverflow) {
-      input.setCustomValidity(ErrorMessage.RANGE_OVERFLOW + input.max);
-      input.reportValidity();
-      highlightInput(input);
-    } else {
-      input.setCustomValidity(``);
-      resetHighlightInput(input);
-    }
-  }
-
-  _isUserDataValid() {
-    const inputs = this.getElement().querySelectorAll(`input`);
-    const notValidInputs = [];
-
-    inputs.forEach((input) => {
-      if (!input.checkValidity()) {
-        highlightInput(input);
-        notValidInputs.push(input);
-        input.addEventListener(`input`, (evt) => {
-          this._checkInputValidity(evt.target);
-        });
-      }
-    });
-
-    if (notValidInputs.length) {
-      this._checkInputValidity(notValidInputs[0]);
-    }
-
-    return notValidInputs.length === 0;
   }
 
   _collectData() {

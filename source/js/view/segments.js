@@ -1,6 +1,6 @@
 import AbstractView from './abstract.js';
-import {getRandomNumber, getRandomFloatNumber, getRandomValue, highlightInput, resetHighlightInput} from '../utils/common.js';
-import {RESIST_COEFS, ErrorMessage, PipeType} from '../const.js';
+import {getRandomNumber, getRandomFloatNumber, getRandomValue} from '../utils/common.js';
+import {RESIST_COEFS, PipeType} from '../const.js';
 
 const getSegmentsRowsTemplate = (data) => {
   const {segmentsAmount, segmentsNames, consumptions, lengths, resistCoefs, moveDirections} = data;
@@ -127,7 +127,8 @@ export default class Segments extends AbstractView {
   _calcButtonClickHandler(evt) {
     evt.preventDefault();
 
-    if (!this._isUserDataValid()) {
+    if (!this.isUserDataValid()) {
+      this.shake();
       return;
     }
 
@@ -137,46 +138,6 @@ export default class Segments extends AbstractView {
 
   _getData() {
     return this._incomeDataModel.getData();
-  }
-
-  _checkInputValidity(input) {
-    if (input.validity.valueMissing) {
-      input.setCustomValidity(ErrorMessage.VALUE_MISSING);
-      input.reportValidity();
-      highlightInput(input);
-    } else if (input.validity.rangeUnderflow) {
-      input.setCustomValidity(ErrorMessage.RANGE_UNDERFLOW + input.min);
-      input.reportValidity();
-      highlightInput(input);
-    } else if (input.validity.rangeOverflow) {
-      input.setCustomValidity(ErrorMessage.RANGE_OVERFLOW + input.max);
-      input.reportValidity();
-      highlightInput(input);
-    } else {
-      input.setCustomValidity(``);
-      resetHighlightInput(input);
-    }
-  }
-
-  _isUserDataValid() {
-    const inputs = this.getElement().querySelectorAll(`input`);
-    const notValidInputs = [];
-
-    inputs.forEach((input) => {
-      if (!input.checkValidity()) {
-        highlightInput(input);
-        notValidInputs.push(input);
-        input.addEventListener(`input`, (evt) => {
-          this._checkInputValidity(evt.target);
-        });
-      }
-    });
-
-    if (notValidInputs.length) {
-      this._checkInputValidity(notValidInputs[0]);
-    }
-
-    return notValidInputs.length === 0;
   }
 
   _collectData() {
